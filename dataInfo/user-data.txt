@@ -1,0 +1,37 @@
+Super Super Admin owen.jones@getloopli.com Adm!N@123
+Platform Platform Admin greg.h@setsquared.group Gh14&*ef
+SSG John Doe john.doe@setsquared.group Jd89$*de  - compAdmin
+SSG Joann Doe jo.doe@setsquared.group Jd13*$cb
+
+*** SEE NEW ACTUAL USER DETAILS IN SEPARATE FILE ***
+
+TechNova Inc.	Alice Johnson	alice.johnson@technova.com	Aj12$*bc  - compAdmin
+TechNova Inc.	Bob Smith	bob.smith@technova.com	Bs34&*de
+TechNova Inc.	Carol Williams	carol.williams@technova.com	Cw56!&fg
+TechNova Inc.	David Brown	david.brown@technova.com	Db78$*hi
+TechNova Inc.	Eve Davis	eve.davis@technova.com	Ed90!&jk
+HealthCare Solutions	Frank Miller	frank.miller@hcs.com	Fm12$*lm  - compAdmin
+HealthCare Solutions	Grace Wilson	grace.wilson@hcs.com	Gw34&*no
+HealthCare Solutions	Henry Taylor	henry.taylor@hcs.com	Ht56!&pq
+HealthCare Solutions	Ivy Anderson	ivy.anderson@hcs.com	Ia78$*rs
+HealthCare Solutions	Jack Thomas	jack.thomas@hcs.com	Jt90!&tu
+FinTech Innovators	Kathy Martinez	kathy.martinez@fintech.com	Km12$*vw  - compAdmin
+FinTech Innovators	Larry Robinson	larry.robinson@fintech.com	Lr34&*xy
+FinTech Innovators	Megan Lee	megan.lee@fintech.com	Ml56!&za
+FinTech Innovators	Nathan Harris	nathan.harris@fintech.com	Nh78$*bc
+FinTech Innovators	Olivia Clark	olivia.clark@fintech.com	Oc90!&de
+EcoFriendly Solutions	Paul Lewis	paul.lewis@ecofriendly.com	Pl12$*fg  - compAdmin
+EcoFriendly Solutions	Quinn Walker	quinn.walker@ecofriendly.com	Qw34&*hi
+EcoFriendly Solutions	Rachel Hall	rachel.hall@ecofriendly.com	Rh56!&jk
+EcoFriendly Solutions	Steve Young	steve.young@ecofriendly.com	Sy78$*lm
+EcoFriendly Solutions	Tina Scott	tina.scott@ecofriendly.com	Ts90!&no
+Global Logistics	Uma King	uma.king@globallogistics.com	Uk12$*pq  - compAdmin
+Global Logistics	Victor Adams	victor.adams@globallogistics.com	Va34&*rs
+Global Logistics	Wendy Nelson	wendy.nelson@globallogistics.com	Wn56!&tu
+Global Logistics	Xander Bell	xander.bell@globallogistics.com	Xb78$*vw
+Global Logistics	Yvonne Clark	yvonne.clark@globallogistics.com	Yc90!&xy
+Creative Design Hub	Zachary Green	zachary.green@creativedesign.com	Zg12$*za  - compAdmin
+Creative Design Hub	Abigail Baker	abigail.baker@creativedesign.com	Ab34&*bc
+Creative Design Hub	Benjamin Cook	benjamin.cook@creativedesign.com	Bc56!&de
+Creative Design Hub	Chloe Brooks	chloe.brooks@creativedesign.com	Cb78$*fg
+Creative Design Hub	Dylan Rivera	dylan.rivera@creativedesign.com	Dr90!&hi

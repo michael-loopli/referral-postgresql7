@@ -1,0 +1,95 @@
+CREATE TABLE referrals.companies
+(
+    id serial NOT NULL,
+    name text UNIQUE NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE referrals.users
+(
+    id serial PRIMARY KEY,
+    email text UNIQUE NOT NULL,
+    username text NOT NULL,
+    password text NOT NULL,
+    role text NOT NULL,
+    company_id INTEGER,
+    FOREIGN KEY (company_id) REFERENCES referrals.companies(id)
+)
+
+CREATE TABLE referrals.sessions
+(
+    id serial PRIMARY KEY,
+    session_id text UNIQUE NOT NULL,
+    user_id INTEGER NOT NULL,
+    expires_at timestamp NOT NULL,
+    created_at timestamp NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES referrals.users(id)
+)
+
+CREATE TABLE referrals.referral_requests
+(
+    id serial PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    title text NOT NULL,
+    content text NOT NULL,
+    referrer_user_id INTEGER NOT NULL,
+    company_id INTEGER,
+    referee_client text NOT NULL,
+    referee_client_email text NOT NULL,
+    created_at timestamptz DEFAULT CURRENT_TIMESTAMP,
+    status text NOT NULL DEFAULT 'pending',
+    FOREIGN KEY (referrer_user_id) REFERENCES referrals.users(id),
+    FOREIGN KEY (company_id) REFERENCES referrals.companies(id)
+)
+
+- - - - - - - INSERT - - - - - - - -
+INSERT INTO referrals.companies (name) VALUES
+('Loopli'),
+('SSG');
+
+INSERT INTO referrals.companies (name) VALUES
+('TechNova Inc'),
+('HealthCare Solutions'),
+('FinTech Innovators'),
+('EcoFriendly Solutions'),
+('Global Logistics'),
+('Creative Design Hub');
+
+INSERT INTO referrals.users (email, username, password, role, company_id)
+VALUES
+    ('owen.jones@getloopli.com', 'Owen Jones', 'Adm!N@123', 'SuperAdmin', 1),
+    ('greg.h@setsquared.group', 'Greg Hannaford', 'Gh14&*ef', 'PlatformAdmin', 2);
+
+INSERT INTO referrals.users (email, username, password, role, company_id)
+VALUES
+    ('alice.johnson@technova.com', 'Alice Johnson', 'Aj12$*bc', 'CompanyAdmin', 3),
+    ('bob.smith@technova.com', 'Bob Smith', 'Bs34&*de', 'Standard', 3),
+    ('carol.williams@technova.com', 'Carol Williams', 'Cw56!&fg', 'Standard', 3),
+    ('david.brown@technova.com', 'David Brown', 'Db78$*hi', 'Standard', 3),
+    ('eve.davis@technova.com', 'Eve Davis', 'Ed90!&jk', 'Standard', 3),
+    ('frank.miller@hcs.com', 'Frank Miller', 'Fm12$*lm', 'CompanyAdmin', 4),
+    ('grace.wilson@hcs.com', 'Grace Wilson', 'Gw34&*no', 'Standard', 4),
+    ('henry.taylor@hcs.com', 'Henry Taylor', 'Ht56!&pq', 'Standard', 4),
+    ('ivy.anderson@hcs.com', 'Ivy Anderson', 'Ia78$*rs', 'Standard', 4),
+    ('jack.thomas@hcs.com', 'Jack Thomas', 'Jt90!&tu', 'Standard', 4),
+    ('kathy.martinez@fintech.com', 'Kathy Martinez', 'Km12$*vw', 'CompanyAdmin', 5),
+    ('larry.robinson@fintech.com', 'Larry Robinson', 'Lr34&*xy', 'Standard', 5),
+    ('megan.lee@fintech.com', 'Megan Lee', 'Ml56!&za', 'Standard', 5),
+    ('nathan.harris@fintech.com', 'Nathan Harris', 'Nh78$*bc', 'Standard', 5),
+    ('olivia.clark@fintech.com', 'Olivia Clark', 'Oc90!&de', 'Standard', 5),
+    ('paul.lewis@ecofriendly.com', 'Paul Lewis', 'Pl12$*fg', 'CompanyAdmin', 6),
+    ('quinn.walker@ecofriendly.com', 'Quinn Walker', 'Qw34&*hi', 'Standard', 6),
+    ('rachel.hall@ecofriendly.com', 'Rachel Hall', 'Rh56!&jk', 'Standard', 6),
+    ('steve.young@ecofriendly.com', 'Steve Young', 'Sy78$*lm', 'Standard', 6),
+    ('tina.scott@ecofriendly.com', 'Tina Scott', 'Ts90!&no', 'Standard', 6),
+    ('uma.king@globallogistics.com', 'Uma King', 'Uk12$*pq', 'CompanyAdmin', 7),
+    ('victor.adams@globallogistics.com', 'Victor Adams', 'Va34&*rs', 'Standard', 7),
+    ('wendy.nelson@globallogistics.com', 'Wendy Nelson', 'Wn56!&tu', 'Standard', 7),
+    ('xander.bell@globallogistics.com', 'Xander Bell', 'Xb78$*vw', 'Standard', 7),
+    ('yvonne.clark@globallogistics.com', 'Yvonne Clark', 'Yc90!&xy', 'Standard', 7),
+    ('zachary.green@creativedesign.com', 'Zachary Green', 'Zg12$*za', 'CompanyAdmin', 8),
+    ('abigail.baker@creativedesign.com', 'Abigail Baker', 'Ab34&*bc', 'Standard', 8),
+    ('benjamin.cook@creativedesign.com', 'Benjamin Cook', 'Bc56!&de', 'Standard', 8),
+    ('chloe.brooks@creativedesign.com', 'Chloe Brooks', 'Cb78$*fg', 'Standard', 8),
+    ('dylan.rivera@creativedesign.com', 'Dylan Rivera', 'Dr90!&hi', 'Standard', 8);
+
