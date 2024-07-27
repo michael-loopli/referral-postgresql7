@@ -1,0 +1,109 @@
+.Referrals {
+  height: 1000px;
+  padding-top: 7rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  padding-bottom: 5rem;
+}
+
+.ref-title {
+  color: white;
+  font-size: 2rem;
+}
+
+.tab-buttons {
+  padding-top: 1rem;
+  display: flex; /* Display buttons in a row */
+  justify-content: space-around; /* Evenly space buttons */
+  margin-bottom: 0; /* Remove space below the tab buttons */
+}
+
+.ref-underline {
+  width: 60px;
+  height: 6px;
+  background: #ffffff;
+  border-radius: 9px;
+  margin: 0 auto 1rem;
+  margin-bottom: 1rem;
+}
+
+.tab-buttons button {
+  background-color: #f1f1f1; /* Light grey background for tabs */
+  padding: 10px 20px; /* Add padding for better appearance */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  color: #333; /* Text color */
+  outline: none; /* Remove outline */
+  transition: background-color 0.3s ease; /* Smooth transition for background */
+  border-radius: 6px 6px 0 0;
+}
+
+.tab-buttons button.active {
+  background-color: #1c8366; /* Green background for active tab */
+  color: white; /* White text for active tab */
+  font-weight: bold; /* Bold text for active tab */
+}
+
+.tab-buttons button:hover:not(.active) {
+  background-color: #d9d9d9;
+}
+
+.tableHeader {
+  border-top: none; /* Remove top border to connect with active tab */
+  padding: 10px 20px; /* Add padding */
+  background-color: #1c8366; /* Match background with active tab */
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 10px 10px 0 0;
+}
+
+.tab-content {
+  border: 2px solid rgb(32, 24, 24);
+  height: auto;
+  padding: 2rem; /* Padding inside content area */
+  margin-bottom: 30px;
+  background-color: #fafafa; /* White background */
+  border-top: none; /* Remove top border to connect with header */
+  border-radius: 0 0 10px 10px;
+}
+
+.btn-accept, .btn-deny {
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  background-color: #c0be4b;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+.btn-deny {
+  margin-left: 5px;
+}
+.btn-accept:hover {
+  background-color: #41ac66;
+  color: #fff;
+}
+.btn-deny:hover {
+  background-color: #cd3545;
+}
+/* .tab-content-bottom {
+  height: 30px;
+  width: 100vw;
+} */
+
+/* .welcome-text {
+  background-color: white;
+  width: 100%; 
+  margin-left: auto; 
+  margin-right: auto; 
+  max-width: 100%;
+}
+
+.welcome-text h2 {
+  font-size: 1.5rem;
+  color: black;
+  text-align: left;
+  font-style: italic;
+  padding-bottom: 2rem;
+} */

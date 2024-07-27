@@ -1,0 +1,61 @@
+.ref-input input[type="text"],
+.ref-input input[type="email"],
+.ref-input textarea,
+.ref-dropdown select {
+  width: 55rem;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  font-family: inherit;
+}
+
+#title, #content, #refereeClient, #refereeClientEmail {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ref-input textarea {
+  height: 8rem;
+  resize: none;
+}
+
+.ref-dropdown select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M5 7l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Adjust as needed */
+  background-size: 20px; /* Adjust as needed */
+}
+
+.refsubmit-container {
+  justify-content: center;
+  display: flex;
+  gap: 2rem;
+  margin: 1rem auto;
+}
+
+.ref-submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 58px;
+  color: #fafafa;
+  background: #1c8366;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ref-submit:hover {
+  border: none;
+  background-color: #e0991b;
+  color: #fafafa;
+}

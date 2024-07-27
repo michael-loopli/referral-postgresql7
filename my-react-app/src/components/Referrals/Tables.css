@@ -1,0 +1,45 @@
+.ref-table {
+  border-collapse: collapse; /* Ensures that the borders are not double */
+  width: 95%;
+  height: auto;
+  margin: auto;
+  background: rgb(255, 249, 232);
+}
+
+.ref-head {
+  background-color: #dad2d2; /* Adds a background color for header cells */
+  border-bottom: 2px solid #1c8366; /* Ensures header row stands out */
+  font-weight: bold; /* Makes header text bold */
+  text-align: center;
+  padding: 8px; /* Adds padding for better readability */
+  height: 3rem;
+}
+
+.ref-data {
+  border: 1px solid #1c8366;
+  text-align: center;
+  padding: 8px; /* Adds padding for better readability */
+}
+
+.ref-row:hover {
+  background-color: #f1f1f1; /* Adds a hover effect for rows */
+}
+
+.actionbtn button {
+  border-radius: 50px;
+  background-color: #dad2d2;
+  margin: 1px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.actionbtn .dcln:hover {
+  background-color: #e0991b;
+  color: #fff;
+}
+
+.actionbtn .accpt:hover {
+  background-color: #1c8366;
+  color: #fff;
+}
