@@ -1,0 +1,45 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  padding-bottom: 1.5rem;
+}
+
+.page-button {
+  background-color: #1c8366;
+  color: white;
+  padding: 8px 16px;
+  margin: 0 4px;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.page-button:hover:not(.active):not(.ellipsis) {
+  background-color: rgb(
+    198,
+    198,
+    198
+  ); /* Keep the background color same as normal */
+  color: white; /* Keep the color same as normal */
+}
+
+.page-button.active {
+  background-color: #e0991b;
+  color: #fff;
+  cursor: default;
+}
+
+.page-button.ellipsis {
+  cursor: default; /* Disable cursor for ellipsis */
+  pointer-events: none; /* Make ellipsis unselectable */
+  background-color: white;
+  color: #1c8366;
+}
+
+.page-button:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+}
