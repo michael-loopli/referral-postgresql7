@@ -1,0 +1,134 @@
+.company-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+.create-company {
+  background-color: white;
+  width: 62rem;
+  left: 50%;
+  border-radius: 6px;
+  padding-top: 0.2rem;
+  padding-bottom: 0.5rem;
+}
+
+.company-underline {
+  width: 60px;
+  height: 6px;
+  background: #1c8366;
+  border-radius: 9px;
+  margin: 0 auto 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.company-title,
+.table-company-title {
+  color: #1c8366;
+  font-size: 2rem;
+}
+
+.company-input input[type="text"] {
+  width: 50rem;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  font-family: inherit;
+}
+
+.company-submit-container {
+  justify-content: center;
+  display: flex;
+  gap: 2rem;
+  margin: 1rem auto;
+}
+
+.company-submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+  height: 3rem;
+  color: #fafafa;
+  background: #1c8366;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.company-submit:hover {
+  background-color: #e0991b;
+}
+
+.company-container {
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+.company-table-container {
+  padding-top: 0.7rem;
+  background-color: white;
+  margin-top: 2rem;
+  margin-left: 7rem;
+  margin-right: 7rem;
+  border-radius: 6px;
+}
+
+.company-table {
+  width: 58rem;
+  border-collapse: collapse; /* Ensures that the borders are not double */
+  background: rgb(255, 249, 232);
+  text-align: center;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+}
+
+.company-head {
+  background-color: #dad2d2; /* Adds a background color for header cells */
+  border-bottom: 2px solid #1c8366; /* Ensures header row stands out */
+  font-weight: bold; /* Makes header text bold */
+  text-align: center;
+  padding: 8px; /* Adds padding for better readability */
+}
+
+.company-head th {
+  height: 3rem;
+}
+
+.company-delete-btn {
+  background-color: #e0991b;
+  border-radius: 50px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  align-items: center;
+  height: 2rem;
+  width: 5rem;
+}
+
+.company-delete-btn:hover {
+  background-color: #c44b4b;
+}
+
+.company-tr {
+  height: 2rem;
+}
+
+.company-row {
+  border-bottom: 1px solid #1c8366; /* Add border bottom for rows */
+  text-align: center;
+  padding: 12px; /* Increase padding for data cells */
+  height: 2rem; /* Adjust the height of the rows */
+}
