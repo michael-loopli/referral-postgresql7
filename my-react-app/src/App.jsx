@@ -55,13 +55,15 @@ const App = () => {
               <Route path='/' exact element={<Home />} />
               <Route path='/register' element={<Register />} />
               <Route path='/login' element={<Login />} />
-              <Route path='/referrals' element={<Referrals />} />
+              <Route path='/referrals' element={<Referrals role={role} />} />
               <Route
                 path='/create-user'
                 element={
                   <CreateUser
                     companies={companies}
                     refreshData={fetchCompanies}
+                    role={role}
+                    //pass 'role' to CreateUser
                   />
                 }
               />
