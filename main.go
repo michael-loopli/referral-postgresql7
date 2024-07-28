@@ -54,7 +54,7 @@ type ReferralRequest struct {
 
 func main() {
 	user := "postgres"
-	password := "mimi123"
+	password := "postgres"
 	dbName := "dbtest7"
 
 	createDatabaseIfNotExists(dbName, user, password)
