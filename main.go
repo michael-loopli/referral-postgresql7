@@ -28,10 +28,12 @@ type User struct {
 	CompanyID   int    `json:"company_id"`
 	CompanyName string `json:"company_name"`
 }
+
 type Company struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
+
 type ReferralRequest struct {
 	ID                 int       `json:"id"`
 	Title              string    `json:"title"`
@@ -51,8 +53,8 @@ type ReferralRequest struct {
 }
 
 func main() {
-	user := "testusr"
-	password := "testing"
+	user := "postgres"
+	password := "mimi123"
 	dbName := "dbtest7"
 
 	createDatabaseIfNotExists(dbName, user, password)
@@ -196,14 +198,14 @@ func createTables() {
 			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 			status TEXT NOT NULL DEFAULT 'pending',
 			FOREIGN KEY (referrer_user_id) REFERENCES users(id),
-			FOREIGN KEY (receiving_company_id) REFERENCES companies(id), -- Add this field
+			FOREIGN KEY (receiving_company_id) REFERENCES companies(id),
 			FOREIGN KEY (sent_company_id) REFERENCES companies(id)
 		);`,
 	}
-
 	for _, query := range queries {
-		if _, err := db.Exec(query); err != nil {
-			log.Fatalf("Error creating table: %v", err)
+		_, err := db.Exec(query)
+		if err != nil {
+			log.Fatalf("Failed to execute query: %s, error: %v", query, err)
 		}
 	}
 }
@@ -734,21 +736,41 @@ func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Check if the company exists
+	// Log the incoming user data
+	log.Printf("Received user data: %+v", user)
+
+	// Validate companyID for companyAdmin role
+	if user.Role == "companyAdmin" && user.CompanyID == 0 {
+		http.Error(w, "Company ID is required for companyAdmin", http.StatusBadRequest)
+		return
+	}
+
+	// Check if the company exists and handle company creation if necessary
 	var companyID int
-	err := db.QueryRow("SELECT id FROM companies WHERE id = $1", user.CompanyID).Scan(&companyID)
-	if err == sql.ErrNoRows {
-		// Company does not exist, insert it
-		err = db.QueryRow("INSERT INTO companies (name) VALUES ($1) RETURNING id", user.CompanyName).Scan(&companyID)
-		if err != nil {
-			log.Println("Error inserting company:", err)
+	if user.CompanyID != 0 {
+		err := db.QueryRow("SELECT id FROM companies WHERE id = $1", user.CompanyID).Scan(&companyID)
+		if err == sql.ErrNoRows {
+			// Company does not exist, insert it
+			log.Printf("Company ID %d not found, inserting new company: %s", user.CompanyID, user.CompanyName)
+			err = db.QueryRow("INSERT INTO companies (name) VALUES ($1) RETURNING id", user.CompanyName).Scan(&companyID)
+			if err != nil {
+				log.Println("Error inserting company:", err)
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+			user.CompanyID = companyID
+		} else if err != nil {
+			log.Println("Error querying company:", err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return
 		}
-	} else if err != nil {
-		log.Println("Error querying company:", err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		return
+	} else {
+		// If no company ID is provided for non-companyAdmin roles, log and return an error
+		if user.Role != "companyAdmin" {
+			log.Println("Company ID is required but not provided.")
+			http.Error(w, "Company ID is required", http.StatusBadRequest)
+			return
+		}
 	}
 
 	// Now insert the user
@@ -760,15 +782,16 @@ func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_, err = db.Exec("INSERT INTO users (email, username, password, role, company_id) VALUES ($1, $2, $3, $4, $5)",
-		user.Email, user.Username, hashedPassword, user.Role, companyID)
+		user.Email, user.Username, hashedPassword, user.Role, user.CompanyID)
 	if err != nil {
-		log.Println("Error inserting user:", err)
+		log.Printf("Error inserting user with email %s: %v", user.Email, err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
 }
+
 func UpdateUserHandler(w http.ResponseWriter, r *http.Request) {
 	// Parse user details from request body
 	var updatedUser User
