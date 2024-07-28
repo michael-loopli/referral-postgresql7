@@ -19,7 +19,8 @@ class Navbar extends Component {
   render() {
     const { role } = this.props;
     const isLoggedIn = role !== "";
-    // Console log 'role' value, is user LoggedIn
+
+    // Console log 'role' value and whether the user is logged in
     console.log("Role:", role);
     console.log("Is logged in:", isLoggedIn);
 
@@ -32,11 +33,13 @@ class Navbar extends Component {
         </div>
         <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
           {MenuData.map((item, index) => {
+            // Condition to display or hide menu items based on role
             if (
-              (item.url === "/create-user" || item.url === "/create-company") &&
-              !["admin", "platformAdmin", "superAdmin"].includes(role)
+              (item.url === "/create-company" && role === "companyAdmin") ||
+              (item.url === "/create-user" &&
+                !["admin", "platformAdmin", "superAdmin", "companyAdmin"].includes(role))
             ) {
-              return null; // Hide Create User and Create Company for non-admin roles
+              return null; // Hide Create Company for companyAdmin, and Create User for non-authorized roles
             }
             return (
               <li key={index}>
