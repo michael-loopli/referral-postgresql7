@@ -1,19 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import UserList from "./UserList";
 import "./CreateUser.css";
 
-const CreateUser = ({ companies, refreshData }) => {
+const CreateUser = ({ companies, refreshData, role }) => {
   const [newUser, setNewUser] = useState({
     email: "",
     username: "",
     password: "",
-    role: "user",
+    role: "user", // Default role is 'user'
     company_id: "",
   });
-  const [error] = useState(null);
+  const [currentCompany, setCurrentCompany] = useState(""); // Store the current company for 'companyAdmin'
+  const [users, setUsers] = useState([]); // List of users for 'companyAdmin'
+  const [error, setError] = useState(null);
 
+  // Initialize company data and users for 'companyAdmin'
+  useEffect(() => {
+    const fetchData = async () => {
+      if (role === "companyAdmin") {
+        try {
+          // Fetch company info
+          const response = await axios.get(
+            "http://localhost:8080/get-user-info",
+            { withCredentials: true }
+          );
+          const { companyId, companyName } = response.data;
+          setCurrentCompany(companyName);
+          setNewUser((prevData) => ({
+            ...prevData,
+            company_id: companyId,
+          }));
+
+          // Fetch users for the company
+          const usersResponse = await axios.get(
+            `http://localhost:8080/users?company_id=${companyId}`,
+            { withCredentials: true }
+          );
+          setUsers(usersResponse.data);
+        } catch (error) {
+          console.error("Error fetching company info or users:", error);
+          setError("Failed to fetch company info or users");
+        }
+      }
+    };
+
+    fetchData();
+  }, [role]);
+
+  // Handle user creation
   const handleCreateUser = async (e) => {
     e.preventDefault();
     try {
@@ -33,16 +69,12 @@ const CreateUser = ({ companies, refreshData }) => {
       alert("User created successfully");
     } catch (error) {
       console.error("Error creating user:", error);
-      alert("Failed to create user");
+      setError("Failed to create user");
     }
   };
 
   if (error) {
     return <div>Error: {error}</div>;
-  }
-
-  if (!companies || companies.length === 0) {
-    return <div>Loading companies...</div>;
   }
 
   return (
@@ -100,31 +132,51 @@ const CreateUser = ({ companies, refreshData }) => {
                     setNewUser({ ...newUser, role: e.target.value })
                   }
                   required>
-                  <option value='platformAdmin'>Platform Admin</option>
-                  <option value='companyAdmin'>Company Admin</option>
-                  <option value='user'>Standard User</option>
+                  {role === "companyAdmin" ? (
+                    <option value='user'>Standard User</option>
+                  ) : (
+                    <>
+                      <option value='platformAdmin'>Platform Admin</option>
+                      <option value='companyAdmin'>Company Admin</option>
+                      <option value='user'>Standard User</option>
+                    </>
+                  )}
                 </select>
               </div>
               <br />
 
               <div>
                 <label htmlFor='user-company'>Company:</label>
-                <select
-                  id='user-company'
-                  value={newUser.company_id}
-                  onChange={(e) =>
-                    setNewUser({ ...newUser, company_id: e.target.value })
-                  }
-                  required>
-                  <option value=''>Select a company</option>
-                  {companies.map((company) => (
-                    <option key={company.id} value={company.id}>
-                      {company.name}
-                    </option>
-                  ))}
-                </select>
+                {role === "companyAdmin" ? (
+                  <input
+                    type='text'
+                    id='user-company'
+                    value={`Company ID: ${newUser.company_id} (${currentCompany})`}
+                    readOnly
+                  />
+                ) : (
+                  <select
+                    id='user-company'
+                    value={newUser.company_id}
+                    onChange={(e) =>
+                      setNewUser({ ...newUser, company_id: e.target.value })
+                    }
+                    required>
+                    <option value=''>Select a company</option>
+                    {companies.length > 0 ? (
+                      companies.map((company) => (
+                        <option key={company.id} value={company.id}>
+                          {company.name}
+                        </option>
+                      ))
+                    ) : (
+                      <option value=''>No companies available</option>
+                    )}
+                  </select>
+                )}
                 <br />
               </div>
+
               <div className='user-submit-container'>
                 <button className='user-submit' type='submit'>
                   Create User
@@ -133,9 +185,21 @@ const CreateUser = ({ companies, refreshData }) => {
             </form>
           </div>
         </section>
-        <div className='user-list-cu'>
-          <UserList />
-        </div>
+
+        {role === "companyAdmin" && (
+          <>
+            <div className='user-list-cu'>
+              <h3>Users in Your Company</h3>
+              <UserList role={role} users={users} />
+            </div>
+          </>
+        )}
+
+        {(role === "superAdmin" || role === "platformAdmin") && (
+          <div className='user-list-cu'>
+            <UserList role={role} />
+          </div>
+        )}
       </div>
     </>
   );
@@ -144,6 +208,7 @@ const CreateUser = ({ companies, refreshData }) => {
 CreateUser.propTypes = {
   companies: PropTypes.array.isRequired,
   refreshData: PropTypes.func.isRequired,
+  role: PropTypes.string.isRequired,
 };
 
 export default CreateUser;
