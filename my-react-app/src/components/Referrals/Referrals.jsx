@@ -9,6 +9,8 @@ import axios from "axios";
 const Referrals = ({ role }) => {
   const [activeTab, setActiveTab] = useState("Referrals Sent");
   const [userCompanyId, setUserCompanyId] = useState(null);
+  const [loading, setLoading] = useState(true); // Added loading state
+  const [error, setError] = useState(""); // Added error state
 
   useEffect(() => {
     const fetchUserCompanyId = async () => {
@@ -17,6 +19,9 @@ const Referrals = ({ role }) => {
         setUserCompanyId(response.data.companyId);
       } catch (error) {
         console.error("Error fetching user info:", error);
+        setError("Failed to fetch user information."); // Set error message
+      } finally {
+        setLoading(false); // Set loading to false after fetching
       }
     };
 
@@ -24,6 +29,10 @@ const Referrals = ({ role }) => {
   }, []);
 
   const renderContent = () => {
+    if (loading) return <p>Loading...</p>; // Show loading message if loading
+
+    if (error) return <p>{error}</p>; // Show error message if there's an error
+
     switch (activeTab) {
       case "Referrals Sent":
         return <SentRefs role={role} />;
@@ -33,10 +42,10 @@ const Referrals = ({ role }) => {
         return userCompanyId ? (
           <CreateReferral userCompanyId={userCompanyId} />
         ) : (
-          <p>Loading...</p>
+          <p>Company information not available.</p> // Handle case where userCompanyId is still null
         );
       default:
-        return null; // This case should never happen with the current setup
+        return <p>Invalid tab selected.</p>; // Handle unexpected tab values
     }
   };
 
